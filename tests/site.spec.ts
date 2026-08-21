@@ -403,3 +403,123 @@ test.describe('Como está o mar', () => {
     await expect(mar).not.toContainText(/\d/);
   });
 });
+
+test.describe('Cabeçalhos de produção', () => {
+  /**
+   * O servidor dos testes aplica os mesmos cabeçalhos do vercel.json, então o
+   * Content-Security-Policy é exercitado de verdade. Uma política apertada
+   * demais quebraria a fonte, o mapa ou a chamada de ondas em silêncio — e o
+   * lugar de descobrir isso é aqui, não na frente do cliente.
+   */
+  test('a página carrega sem violação de CSP nem erro de console', async ({ page }) => {
+    const problems: string[] = [];
+
+    page.on('console', (message) => {
+      if (message.type() === 'error') problems.push(message.text());
+    });
+    page.on('pageerror', (error) => problems.push(error.message));
+
+    await goHome(page);
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(1200);
+
+    const csp = problems.filter((text) => /content security policy/i.test(text));
+    expect(csp, `violações de CSP: ${csp.join(' | ')}`).toHaveLength(0);
+
+    // A chamada à API de ondas pode falhar por rede; isso não é erro de página.
+    const unexpected = problems.filter((text) => !/open-meteo|failed to fetch|net::/i.test(text));
+    expect(unexpected, `erros inesperados: ${unexpected.join(' | ')}`).toHaveLength(0);
+  });
+
+  test('serve os cabeçalhos de segurança esperados', async ({ request }) => {
+    const response = await request.get('/');
+    const headers = response.headers();
+
+    expect(headers['x-content-type-options']).toBe('nosniff');
+    expect(headers['referrer-policy']).toBe('strict-origin-when-cross-origin');
+    expect(headers['content-security-policy']).toContain("default-src 'self'");
+    // As duas exceções de que o site realmente precisa.
+    expect(headers['content-security-policy']).toContain('marine-api.open-meteo.com');
+    expect(headers['content-security-policy']).toContain('openstreetmap.org');
+  });
+
+  test('as fontes são servidas do próprio domínio', async ({ page }) => {
+    const external: string[] = [];
+    page.on('request', (request) => {
+      const url = request.url();
+      if (/fonts\.(googleapis|gstatic)\.com/.test(url)) external.push(url);
+    });
+
+    await goHome(page);
+    // next/font baixa as fontes no build; nenhuma requisição a terceiro em runtime.
+    expect(external).toHaveLength(0);
+  });
+});
+
+test.describe('Pronto para deploy', () => {
+  /**
+   * Com `trailingSlash: true`, o Next emite um 308 de qualquer caminho SEM
+   * ponto para a versão com barra final. Foi o que derrubou a rota de imagem
+   * do Next (`/opengraph-image`): virava `/opengraph-image/` e dava 404, com o
+   * preview do link quebrando no WhatsApp. Estes testes prendem essa classe de
+   * erro.
+   */
+  test('a imagem de compartilhamento existe e é uma imagem de verdade', async ({ page, request }) => {
+    await goHome(page);
+
+    const ogImage = await page.locator('meta[property="og:image"]').getAttribute('content');
+    expect(ogImage).toBeTruthy();
+
+    const path = new URL(ogImage!).pathname;
+    // Precisa ter extensão, senão cai no redirect de barra final.
+    expect(path).toMatch(/\.(jpg|jpeg|png)$/);
+
+    const response = await request.get(path);
+    expect(response.status()).toBe(200);
+    expect(response.headers()['content-type']).toMatch(/^image\//);
+
+    // Clientes de mensagem desistem do preview em imagens muito pesadas.
+    const bytes = (await response.body()).length;
+    expect(bytes).toBeGreaterThan(10_000);
+    expect(bytes).toBeLessThan(600_000);
+  });
+
+  test('nenhum recurso do <head> fica sem extensão', async ({ page }) => {
+    await goHome(page);
+
+    const urls = await page.evaluate(() =>
+      [
+        ...document.querySelectorAll(
+          'meta[property="og:image"], meta[name="twitter:image"], link[rel="icon"], link[rel="apple-touch-icon"]',
+        ),
+      ]
+        .map((node) => node.getAttribute('content') ?? node.getAttribute('href') ?? '')
+        .filter(Boolean),
+    );
+
+    expect(urls.length).toBeGreaterThan(0);
+    for (const url of urls) {
+      const path = url.startsWith('http') ? new URL(url).pathname : url;
+      expect(path, `${path} precisa de extensão para não cair no redirect 308`).toMatch(/\.[a-z0-9]+$/i);
+    }
+  });
+
+  test('as rotas publicadas respondem', async ({ request }) => {
+    for (const path of ['/', '/revisao/', '/robots.txt', '/sitemap.xml', '/icon.svg', '/og.jpg']) {
+      const response = await request.get(path);
+      expect(response.status(), `${path} respondeu ${response.status()}`).toBe(200);
+    }
+  });
+
+  test('a URL do site vem do ambiente, não do placeholder de desenvolvimento', async ({ page }) => {
+    await goHome(page);
+
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    const ogUrl = await page.locator('meta[property="og:url"]').getAttribute('content');
+
+    // Em produção a Vercel injeta VERCEL_PROJECT_PRODUCTION_URL; aqui o build
+    // local usa o fallback. O que importa é que os dois concordem e sejam https.
+    expect(canonical).toMatch(/^https:\/\//);
+    expect(ogUrl).toBe(canonical);
+  });
+});

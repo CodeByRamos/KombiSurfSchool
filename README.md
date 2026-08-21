@@ -73,16 +73,25 @@ npm run dev     # http://localhost:3000
 | `npm run lint` | ESLint (config do Next 16) |
 | `npm run typecheck` | TypeScript em modo estrito |
 | `npm test` | Playwright, desktop + mobile, contra o build |
+| `npm run og` | regenera `public/og.jpg`, o preview do link |
 
 O `npm test` sobe sozinho um servidor estático (`tests/static-server.mjs`) sobre
 a pasta `out/`, então rode `npm run build` antes. Em uma máquina nova,
 `npm run test:install` baixa o Chromium uma vez.
 
+Esse servidor aplica **os mesmos cabeçalhos do `vercel.json`**, incluindo o
+Content-Security-Policy. É de propósito: uma política apertada demais quebraria
+o mapa, a fonte ou a consulta de ondas em silêncio, e o lugar de descobrir isso
+é no teste.
+
 ### Publicando
 
 `next.config.ts` usa `output: 'export'`, então o build gera HTML estático puro em
 `out/` — sobe em Vercel, Netlify, Cloudflare Pages, S3 ou qualquer hospedagem
-comum, sem servidor Node.
+comum, sem servidor Node. **Nenhuma variável de ambiente é necessária.**
+
+O passo a passo, a checagem antes de mandar o link para o cliente e o que fazer
+quando ele disser sim estão em **[`DEPLOY.md`](./DEPLOY.md)**.
 
 ---
 
@@ -103,11 +112,13 @@ data/            ← a escola manda informação nova? é aqui, e só aqui
   sources.ts       registro da pesquisa: fonte por fonte
   types.ts         o modelo Fact / resolve / isKnown
 
-app/             rotas (App Router), SEO, robots, sitemap, OG image
+app/             rotas (App Router), SEO, robots, sitemap
 components/
   layout/          cabeçalho, rodapé, CTA fixo do mobile, marca
   sections/        as seções da home, na ordem em que aparecem
   ui/              botões, ícones, mídia, arte gerada, mapa, reveal
+scripts/
+  og.mjs           gera public/og.jpg a partir de og-template.html
 lib/
   whatsapp.ts      montagem dos links de conversa
   marine.ts        integração com a Open-Meteo (condições do mar)
@@ -142,6 +153,15 @@ número inventado. Nada na página depende dela.
 **Mapa.** OpenStreetMap embutido, sem chave de API e sem banner de cookies. O
 iframe só é montado quando a seção entra na tela; enquanto isso (e se falhar)
 fica no lugar uma peça gráfica com o endereço, não um retângulo cinza.
+
+**Imagem de compartilhamento.** É um arquivo comum (`public/og.jpg`, 64 KB),
+gerado por `npm run og` a partir de um template HTML com as fontes embutidas —
+roda offline e sai igual em qualquer máquina. Deliberadamente **não** usa a
+convenção `app/opengraph-image.tsx` do Next: ela publica em `/opengraph-image`,
+sem extensão, e com `trailingSlash: true` o Next emite um 308 de todo caminho
+sem ponto para a versão com barra final. O resultado seria 404 e preview
+quebrado justamente no WhatsApp, que é como o link circula. Há teste prendendo
+isso.
 
 **Tipografia.** Anton para display, Inter para texto, via `next/font` (sem FOUT,
 sem requisição a terceiro em runtime). A entrelinha da display é `0.94` de
@@ -185,8 +205,8 @@ o botão de agendar.
 
 ## SEO
 
-`title`, `description`, `canonical`, Open Graph, Twitter Card, imagem OG gerada
-no build, favicon, `sitemap.xml`, `robots.txt` e JSON-LD
+`title`, `description`, `canonical`, Open Graph, Twitter Card, imagem de
+compartilhamento, favicon, `sitemap.xml`, `robots.txt` e JSON-LD
 (`SportsActivityLocation`, `Service`, `FAQPage`, `BreadcrumbList`). O schema só
 emite dados que passaram no filtro `isKnown` — telefone e endereço não
 confirmados não entram.

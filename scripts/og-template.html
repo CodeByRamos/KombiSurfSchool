@@ -1,0 +1,85 @@
+<!doctype html>
+<!--
+  Fonte da imagem de compartilhamento (Open Graph).
+
+  Gere com `npm run og` -> escreve public/og.jpg em 1200x630.
+  Editar este arquivo e rodar o comando é o jeito de mudar o preview do link.
+
+  As fontes (Anton e Inter) são injetadas pelo script a partir de
+  scripts/fonts/, então a geração não depende de rede e sai igual em qualquer
+  máquina.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        width: 1200px;
+        height: 630px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 68px 72px;
+        background:
+          radial-gradient(900px 520px at 78% 12%, rgba(255, 190, 69, 0.20), transparent 62%),
+          linear-gradient(158deg, #0b3a46 0%, #071a20 60%, #0e2a33 100%);
+        color: #f7f3ea;
+        font-family: 'Inter', system-ui, sans-serif;
+        position: relative;
+        overflow: hidden;
+      }
+      /* A mesma onda do hero, reduzida ao essencial. */
+      .wave { position: absolute; inset: 0; opacity: 0.5; }
+      .grain {
+        position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      .row { position: relative; display: flex; align-items: center; gap: 18px; }
+      .bar { width: 58px; height: 8px; background: #ef4b23; }
+      .eyebrow {
+        font-size: 22px; font-weight: 600; letter-spacing: 6px;
+        text-transform: uppercase; color: #ffbe45;
+      }
+      .headline {
+        position: relative;
+        font-family: 'Anton', 'Arial Narrow', sans-serif;
+        font-size: 116px;
+        line-height: 0.94;
+        letter-spacing: -1.5px;
+        text-transform: uppercase;
+      }
+      .headline .accent { color: #ffbe45; }
+      .lead { position: relative; margin-top: 26px; font-size: 31px; color: rgba(247, 243, 234, 0.78); }
+      .foot {
+        position: relative; display: flex; align-items: center;
+        justify-content: space-between; font-size: 27px;
+      }
+      .brand { font-family: 'Anton', sans-serif; letter-spacing: 0.5px; text-transform: uppercase; }
+      .cta { color: rgba(247, 243, 234, 0.62); }
+    </style>
+  </head>
+  <body>
+    <svg class="wave" viewBox="0 0 1200 630" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M1200 250 C 940 268 700 350 460 470 C 300 548 140 590 0 606 L0 630 L1200 630 Z" fill="#0f6675" opacity="0.75"/>
+      <path d="M1200 250 C 940 268 700 350 460 470 C 300 548 140 590 0 606" fill="none" stroke="#bfe3e6" stroke-width="5" opacity="0.55"/>
+      <path d="M1200 336 C 960 360 720 442 500 546 C 340 616 160 640 0 652 L0 630 L1200 630 Z" fill="#0c4a58" opacity="0.6"/>
+    </svg>
+    <div class="grain"></div>
+
+    <div class="row">
+      <span class="bar"></span>
+      <span class="eyebrow">Guarujá — SP</span>
+    </div>
+
+    <div>
+      <div class="headline">Sua primeira<br />onda é <span class="accent">hoje</span></div>
+      <div class="lead">Aula de surf para iniciantes, crianças e quem quer evoluir.</div>
+    </div>
+
+    <div class="foot">
+      <span class="brand">Kombi Surf School</span>
+      <span class="cta">Agende pelo WhatsApp</span>
+    </div>
+  </body>
+</html>

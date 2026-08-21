@@ -13,9 +13,34 @@
  * sitemap, JSON-LD) está implementada e passa a valer no dia em que a escola
  * aprovar: basta virar esta flag para false e ajustar `url`.
  */
+/**
+ * URL pública do site — usada no canonical, no Open Graph, no sitemap e no
+ * JSON-LD. Precisa estar certa: é ela que faz o preview do link renderizar
+ * quando você manda o endereço no WhatsApp para o cliente.
+ *
+ * A resolução, em ordem:
+ *   1. NEXT_PUBLIC_SITE_URL       — defina quando houver domínio próprio
+ *   2. VERCEL_PROJECT_PRODUCTION_URL — a Vercel injeta sozinha no build
+ *   3. o placeholder abaixo       — só em desenvolvimento
+ *
+ * Como o site é gerado no build, ler do ambiente aqui já resolve tudo: nenhuma
+ * das páginas precisa saber a URL em tempo de execução.
+ */
+const FALLBACK_URL = 'https://kombisurfschool.example';
+
+function resolveSiteUrl(): string {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (explicit) return explicit.replace(/\/$/, '');
+
+  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  if (vercel) return `https://${vercel.replace(/\/$/, '')}`;
+
+  return FALLBACK_URL;
+}
+
 export const site = {
   isConcept: true,
-  url: 'https://kombisurfschool.example',
+  url: resolveSiteUrl(),
   name: 'Kombi Surf School',
   shortName: 'Kombi',
   locale: 'pt-BR',
