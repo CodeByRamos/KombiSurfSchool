@@ -25,7 +25,7 @@ export function FinalCta() {
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <WhatsAppCta label="Agendar uma aula" size="lg" className="w-full sm:w-auto" />
         </div>
-        <p className="mt-6 text-sm text-foam/55">{pricing.ctaLabel}</p>
+        <p className="mt-6 text-sm text-foam/65">{pricing.ctaLabel}</p>
       </div>
     </section>
   );

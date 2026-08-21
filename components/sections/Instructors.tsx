@@ -40,21 +40,21 @@ export function Instructors() {
                 <h3 className="font-display text-2xl text-ink">
                   {resolve(instructor.name, FALLBACK.generic)}
                 </h3>
-                <p className="mt-1 text-sm text-kombi">{resolve(instructor.role, FALLBACK.short)}</p>
+                <p className="mt-1 text-sm text-kombi-dark">{resolve(instructor.role, FALLBACK.short)}</p>
                 <p className="mt-4 text-[15px] leading-relaxed text-ink/65">
                   {resolve(instructor.bio, FALLBACK.generic)}
                 </p>
                 <dl className="mt-5 space-y-2 border-t border-ink/10 pt-4 text-sm">
                   <div className="flex justify-between gap-4">
-                    <dt className="text-ink/45">Experiência</dt>
+                    <dt className="text-ink/65">Experiência</dt>
                     <dd className="text-right text-ink">{resolve(instructor.experience, FALLBACK.short)}</dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-ink/45">Especialidade</dt>
+                    <dt className="text-ink/65">Especialidade</dt>
                     <dd className="text-right text-ink">{resolve(instructor.specialty, FALLBACK.short)}</dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-ink/45">Certificações</dt>
+                    <dt className="text-ink/65">Certificações</dt>
                     <dd className="text-right text-ink">
                       {resolve(instructor.certifications, [FALLBACK.short]).join(', ')}
                     </dd>

@@ -31,7 +31,7 @@ export function Testimonials() {
                     href={item.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="mt-1 block text-ink/45 underline underline-offset-2 hover:text-ink"
+                    className="mt-1 block text-ink/65 underline underline-offset-2 hover:text-ink"
                   >
                     via {item.sourceName}
                   </a>

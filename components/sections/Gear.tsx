@@ -37,7 +37,7 @@ export function Gear() {
                 <Reveal key={item.id} as="li" delay={index * 60} className="bg-sand">
                   <div className="h-full p-6">
                     <h3 className="font-display text-xl text-ink">{item.label}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink/60">{item.detail}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-ink/70">{item.detail}</p>
                   </div>
                 </Reveal>
               ))}

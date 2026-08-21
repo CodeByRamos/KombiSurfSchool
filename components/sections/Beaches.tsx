@@ -19,10 +19,14 @@ const art: Record<string, { variant: ArtVariant; seed: number }> = {
   pernambuco: { variant: 'sunset', seed: 406 },
 };
 
+/**
+ * Os selos ficam por cima da imagem, então o fundo é sólido: com fundo
+ * translúcido o contraste dependeria do que estivesse atrás.
+ */
 const levelStyles: Record<string, string> = {
-  iniciante: 'bg-sea-light/25 text-ink',
-  'iniciante-intermediario': 'bg-sun/30 text-ink',
-  'intermediario-avancado': 'bg-kombi/15 text-kombi-dark',
+  iniciante: 'bg-sky text-ink',
+  'iniciante-intermediario': 'bg-sun text-ink',
+  'intermediario-avancado': 'bg-kombi text-foam',
 };
 
 /**
@@ -80,11 +84,11 @@ export function Beaches() {
                         >
                           {beach.name}
                         </span>
-                        <span className="mt-1.5 block text-[13px] text-foam/50">{beach.levelLabel}</span>
+                        <span className="mt-1.5 block text-[13px] text-foam/60">{beach.levelLabel}</span>
                       </span>
                       <ArrowIcon
                         className={`size-5 shrink-0 transition-all ${
-                          isActive ? 'text-sun' : 'text-foam/30 group-hover:translate-x-1 group-hover:text-foam/60'
+                          isActive ? 'text-sun' : 'text-foam/60 group-hover:translate-x-1 group-hover:text-foam/60'
                         }`}
                       />
                     </button>
@@ -93,7 +97,7 @@ export function Beaches() {
               })}
             </ul>
 
-            <p className="mt-8 max-w-md text-sm leading-relaxed text-foam/55">{seasonNote}</p>
+            <p className="mt-8 max-w-md text-sm leading-relaxed text-foam/65">{seasonNote}</p>
           </div>
 
           {/* Detalhe da praia selecionada */}
@@ -118,7 +122,7 @@ export function Beaches() {
             <div className="mt-7">
               <h3 className="headline text-3xl text-foam md:text-4xl">{active.name}</h3>
               <p className="mt-4 leading-relaxed text-foam/70">{active.description}</p>
-              <p className="mt-4 text-sm leading-relaxed text-foam/50">{active.wave}</p>
+              <p className="mt-4 text-sm leading-relaxed text-foam/60">{active.wave}</p>
 
               <ul className="mt-6 flex flex-wrap gap-2">
                 {active.highlights.map((item) => (

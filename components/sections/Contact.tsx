@@ -130,7 +130,7 @@ export function Contact() {
                   </a>
                 </div>
 
-                <p className="mt-5 text-xs leading-relaxed text-foam/45">
+                <p className="mt-5 text-xs leading-relaxed text-foam/60">
                   Endereço de referência: {address.full}. A escola atende nas praias do Guarujá —
                   confirme com a Kombi o ponto de encontro antes de sair de casa.
                 </p>

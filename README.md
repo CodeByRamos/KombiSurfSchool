@@ -174,8 +174,14 @@ performance > estética**, e o layout segue isso:
 
 Um `h1` por página, hierarquia de headings, `alt` em toda imagem e arte,
 `aria-label` em todo botão sem texto, foco visível, navegação completa por
-teclado (inclusive no lightbox e no menu mobile), link de pular para o conteúdo
-e contraste conferido sobre as áreas escuras.
+teclado (inclusive no lightbox e no menu mobile) e link de pular para o
+conteúdo.
+
+O contraste foi medido, não estimado: a tabela está em
+[`CONTRASTE.md`](./CONTRASTE.md), e todas as combinações passam no WCAG AA.
+Foi essa auditoria que dividiu o laranja da marca em dois tons — o `#EF4B23`
+original entrega só 3.3:1 com texto claro por cima, o que reprovaria justamente
+o botão de agendar.
 
 ## SEO
 

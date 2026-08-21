@@ -17,7 +17,7 @@ export function Marquee() {
         {track.map((item, index) => (
           <span key={index} className="flex items-center gap-10">
             <span className="font-display text-xl text-ink/70 md:text-2xl">{item}</span>
-            <span className="size-1.5 rounded-full bg-kombi" />
+            <span className="size-1.5 rounded-full bg-kombi-bright" />
           </span>
         ))}
       </div>

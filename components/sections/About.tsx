@@ -44,7 +44,7 @@ export function About() {
                 o próximo passo.{' '}
                 {resolve(school.bookingModel, 'As aulas são agendadas por contato direto.')}
               </p>
-              <p className="text-base text-ink/55">
+              <p className="text-base text-ink/65">
                 O resto da história — quando a escola nasceu, quem está por trás e de onde vem o nome
                 Kombi — a gente prefere contar do jeito certo, com a palavra de quem viveu. Em breve,
                 aqui.
@@ -53,18 +53,18 @@ export function About() {
 
             <dl className="mt-10 grid grid-cols-2 gap-8 border-t border-ink/10 pt-8 sm:grid-cols-3">
               <div>
-                <dt className="eyebrow text-ink/40">Onde</dt>
+                <dt className="eyebrow text-ink/65">Onde</dt>
                 <dd className="mt-2 font-display text-2xl leading-tight text-ink">Guarujá</dd>
               </div>
               <div>
-                <dt className="eyebrow text-ink/40">Níveis</dt>
+                <dt className="eyebrow text-ink/65">Níveis</dt>
                 <dd className="mt-2 font-display text-2xl leading-tight text-ink">
                   Iniciante e intermediário
                 </dd>
               </div>
               {followersLabel && (
                 <div>
-                  <dt className="eyebrow text-ink/40">Comunidade</dt>
+                  <dt className="eyebrow text-ink/65">Comunidade</dt>
                   <dd className="mt-2 font-display text-2xl leading-tight text-ink">
                     {instagram ? (
                       <a
@@ -78,7 +78,7 @@ export function About() {
                     ) : (
                       followersLabel
                     )}
-                    <span className="mt-1 block text-sm font-normal normal-case tracking-normal text-ink/45">
+                    <span className="mt-1 block text-sm font-normal normal-case tracking-normal text-ink/65">
                       no Instagram
                     </span>
                   </dd>

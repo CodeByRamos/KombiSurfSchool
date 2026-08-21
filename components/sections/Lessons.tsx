@@ -39,7 +39,7 @@ export function Lessons() {
             }
             lead={resolve(lessonsIntro, 'Aulas de surf no Guarujá para diferentes níveis.')}
           />
-          <p className="shrink-0 text-sm leading-relaxed text-ink/55 md:max-w-[17rem] md:text-right">
+          <p className="shrink-0 text-sm leading-relaxed text-ink/65 md:max-w-[17rem] md:text-right">
             Duração, formato e valores são combinados no agendamento, de acordo com o seu nível e com
             o mar do dia.
           </p>
@@ -80,16 +80,16 @@ export function Lessons() {
 
                   <div className="flex flex-1 flex-col p-7">
                     <h3 className="font-display text-3xl text-ink">{lesson.name}</h3>
-                    <p className="mt-2 text-sm font-medium text-kombi">{lesson.hook}</p>
+                    <p className="mt-2 text-sm font-medium text-kombi-dark">{lesson.hook}</p>
                     <p className="mt-4 text-[15px] leading-relaxed text-ink/65">{lesson.description}</p>
 
                     <dl className="mt-6 space-y-2.5 border-t border-ink/10 pt-5 text-sm">
                       {specs.map((spec) => (
                         <div key={spec.label} className="flex items-baseline justify-between gap-4">
-                          <dt className="shrink-0 text-ink/45">{spec.label}</dt>
+                          <dt className="shrink-0 text-ink/65">{spec.label}</dt>
                           <dd
                             className={`text-right ${
-                              spec.known ? 'font-medium text-ink' : 'italic text-ink/40'
+                              spec.known ? 'font-medium text-ink' : 'italic text-ink/65'
                             }`}
                           >
                             {spec.value}
@@ -97,7 +97,7 @@ export function Lessons() {
                         </div>
                       ))}
                       <div className="flex items-baseline justify-between gap-4">
-                        <dt className="shrink-0 text-ink/45">Valor</dt>
+                        <dt className="shrink-0 text-ink/65">Valor</dt>
                         <dd className="text-right font-semibold text-ink">{FALLBACK.price}</dd>
                       </div>
                     </dl>
@@ -121,7 +121,7 @@ export function Lessons() {
           })}
         </div>
 
-        <p className="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-ink/55">
+        <p className="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-ink/65">
           {pricing.ctaLabel}. A Kombi monta o valor de acordo com o formato da aula — individual, em
           dupla ou em grupo — e com a quantidade de aulas.
         </p>

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const statusStyle: Record<ConfirmationStatus, { label: string; className: string }> = {
-  confirmado: { label: 'Confirmado', className: 'bg-sea/15 text-sea' },
+  confirmado: { label: 'Confirmado', className: 'bg-sea/15 text-sea-deep' },
   referencia: { label: 'A validar', className: 'bg-sun/25 text-ink' },
   pendente: { label: 'Pendente', className: 'bg-kombi/12 text-kombi-dark' },
 };
@@ -35,7 +35,7 @@ export default function RevisaoPage() {
   return (
     <div className="bg-foam pb-24 pt-32">
       <div className="shell max-w-4xl">
-        <p className="eyebrow text-kombi">Uso interno</p>
+        <p className="eyebrow text-kombi-dark">Uso interno</p>
         <h1 className="headline mt-4 text-[clamp(2.25rem,6vw,3.75rem)] text-ink">
           Revisão de conteúdo
         </h1>
@@ -54,7 +54,7 @@ export default function RevisaoPage() {
             { label: 'Fotos faltando', value: `${summary.photosMissing}/${summary.photosTotal}` },
           ].map((stat) => (
             <div key={stat.label} className="bg-foam p-5 text-center">
-              <dt className="eyebrow text-ink/40">{stat.label}</dt>
+              <dt className="eyebrow text-ink/65">{stat.label}</dt>
               <dd className="mt-2 font-display text-3xl text-ink">{stat.value}</dd>
             </div>
           ))}
@@ -107,9 +107,9 @@ export default function RevisaoPage() {
                           {style.label}
                         </span>
                       </div>
-                      {item.note && <p className="mt-1.5 text-sm text-ink/55">{item.note}</p>}
+                      {item.note && <p className="mt-1.5 text-sm text-ink/65">{item.note}</p>}
                       {item.source && (
-                        <p className="mt-1 truncate text-xs text-ink/40">Fonte: {item.source}</p>
+                        <p className="mt-1 truncate text-xs text-ink/65">Fonte: {item.source}</p>
                       )}
                     </li>
                   );
@@ -126,7 +126,7 @@ export default function RevisaoPage() {
               <li key={source.id} className="rounded-2xl border border-ink/12 p-5">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <h3 className="font-semibold text-ink">{source.label}</h3>
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-ink/45">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-ink/65">
                     Confiabilidade: {reliabilityLabel[source.reliability]}
                   </span>
                 </div>
@@ -136,7 +136,7 @@ export default function RevisaoPage() {
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-block break-all text-xs text-sea underline underline-offset-2"
+                    className="mt-2 inline-block break-all text-xs text-sea-deep underline underline-offset-2"
                   >
                     {source.url}
                   </a>
@@ -160,7 +160,7 @@ export default function RevisaoPage() {
         </section>
 
         <div className="mt-14">
-          <Link href="/" className="text-sm font-semibold text-kombi underline underline-offset-4">
+          <Link href="/" className="text-sm font-semibold text-kombi-dark underline underline-offset-4">
             ← Voltar para o site
           </Link>
         </div>

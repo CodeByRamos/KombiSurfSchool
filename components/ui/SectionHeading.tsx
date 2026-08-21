@@ -23,7 +23,7 @@ export function SectionHeading({
   return (
     <div className={`${isCenter ? 'mx-auto max-w-2xl text-center' : 'max-w-3xl'} ${className}`}>
       {eyebrow && (
-        <p className={`eyebrow mb-4 ${tone === 'light' ? 'text-sun' : 'text-kombi'}`}>{eyebrow}</p>
+        <p className={`eyebrow mb-4 ${tone === 'light' ? 'text-sun' : 'text-kombi-dark'}`}>{eyebrow}</p>
       )}
       <Tag
         className={`headline text-[clamp(2.25rem,6vw,4.25rem)] ${

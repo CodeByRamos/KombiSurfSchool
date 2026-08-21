@@ -111,7 +111,7 @@ export function Gallery() {
                       className={`h-9 whitespace-nowrap rounded-full px-4 text-sm font-medium transition-colors ${
                         isActive
                           ? 'bg-ink text-foam'
-                          : 'border border-ink/15 text-ink/60 hover:border-ink/35 hover:text-ink'
+                          : 'border border-ink/15 text-ink/70 hover:border-ink/35 hover:text-ink'
                       }`}
                     >
                       {category.label}
@@ -124,7 +124,7 @@ export function Gallery() {
         </div>
 
         {items.length === 0 ? (
-          <p className="mt-14 text-ink/50">Nenhuma imagem nesta categoria ainda.</p>
+          <p className="mt-14 text-ink/65">Nenhuma imagem nesta categoria ainda.</p>
         ) : (
           <ul className="mt-12 grid grid-flow-dense auto-rows-[13rem] grid-cols-1 gap-3 sm:auto-rows-[11rem] sm:grid-cols-2 lg:auto-rows-[12rem] lg:grid-cols-3">
             {items.map((item, index) => (

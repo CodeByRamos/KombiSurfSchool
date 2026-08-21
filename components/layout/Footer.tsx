@@ -94,7 +94,7 @@ export function Footer() {
                   </a>
                 </li>
               )}
-              <li className="pt-1 text-foam/45">
+              <li className="pt-1 text-foam/60">
                 As aulas acontecem na praia. O ponto de encontro é combinado no agendamento.
               </li>
             </ul>
@@ -103,7 +103,7 @@ export function Footer() {
 
         <div className="rule mt-14 mb-6 text-foam" />
 
-        <div className="flex flex-col gap-4 text-xs text-foam/45 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-4 text-xs text-foam/60 md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {site.name}. Guarujá — SP.
           </p>

@@ -19,12 +19,20 @@
   --color-sand: #ece2d0;
   --color-sand-dark: #d6c8b0;
 
-  /* Acento — laranja de Kombi */
-  --color-kombi: #ef4b23;
-  --color-kombi-dark: #cf3a17;
+  /* Acento — laranja de Kombi
+     Dois tons de proposito. O laranja vivo (#EF4B23) e a cor da marca, mas com
+     texto claro por cima ele so alcanca 3.3:1 — reprovado no WCAG AA. Entao:
+       kombi        -> tom de trabalho: botao, link, texto de destaque (4.8:1)
+       kombi-bright -> so grafismo grande (a faixa da Kombi, pontos decorativos)
+     Tabela completa de contrastes em CONTRASTE.md. */
+  --color-kombi: #c9330f;
+  --color-kombi-dark: #a62a0b;
+  --color-kombi-bright: #ef4b23;
 
   /* Mar */
   --color-sea: #0e7f8c;
+  /* Versao de texto do azul do mar: 6.4:1 sobre o creme, contra 4.3:1 do tom cheio. */
+  --color-sea-deep: #0a626d;
   --color-sea-light: #6cbfc7;
   --color-sky: #bfe3e6;
   --color-sun: #ffbe45;

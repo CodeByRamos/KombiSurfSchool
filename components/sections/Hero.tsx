@@ -62,17 +62,17 @@ export function Hero() {
 
         <dl className="mt-10 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-6 border-t border-foam/15 pt-7 sm:grid-cols-3 md:mt-14 md:gap-y-7 md:pt-8">
           <div>
-            <dt className="eyebrow text-foam/45">Níveis</dt>
+            <dt className="eyebrow text-foam/60">Níveis</dt>
             <dd className="mt-2 font-display text-xl leading-tight text-foam md:text-2xl">
               Iniciante ao intermediário
             </dd>
           </div>
           <div>
-            <dt className="eyebrow text-foam/45">Idades</dt>
+            <dt className="eyebrow text-foam/60">Idades</dt>
             <dd className="mt-2 font-display text-xl leading-tight text-foam md:text-2xl">Todas</dd>
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <dt className="eyebrow text-foam/45">Valores</dt>
+            <dt className="eyebrow text-foam/60">Valores</dt>
             <dd className="mt-2 font-display text-xl leading-tight text-foam md:text-2xl">
               {pricing.shortLabel} no WhatsApp
             </dd>
@@ -82,7 +82,7 @@ export function Hero() {
 
       <a
         href="#como-funciona"
-        className="absolute bottom-6 right-5 hidden items-center gap-2 text-xs uppercase tracking-[0.2em] text-foam/50 transition-colors hover:text-foam md:right-10 md:inline-flex"
+        className="absolute bottom-6 right-5 hidden items-center gap-2 text-xs uppercase tracking-[0.2em] text-foam/60 transition-colors hover:text-foam md:right-10 md:inline-flex"
       >
         Rolar
         <span className="inline-block h-8 w-px bg-foam/40" aria-hidden="true" />

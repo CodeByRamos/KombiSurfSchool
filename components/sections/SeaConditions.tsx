@@ -77,14 +77,14 @@ export function SeaConditions() {
       <div className="shell">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:items-center">
           <div>
-            <p className="eyebrow mb-3 flex items-center gap-2 text-kombi">
+            <p className="eyebrow mb-3 flex items-center gap-2 text-kombi-dark">
               <WaveIcon className="size-4" />
               Como está o mar
             </p>
             <h2 id="mar-titulo" className="headline text-3xl text-ink md:text-4xl">
               {seaConditionsSpot.name}, agora
             </h2>
-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink/60">
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink/70">
               {state.status === 'error'
                 ? 'Não foi possível ler as condições agora. Confirme o mar do dia direto com a escola.'
                 : reading.hint}
@@ -95,7 +95,7 @@ export function SeaConditions() {
             <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-ink/10 sm:grid-cols-4">
               {metrics.map((metric) => (
                 <div key={metric.label} className="bg-foam px-4 py-5 text-center sm:px-3">
-                  <dt className="eyebrow text-ink/40">{metric.label}</dt>
+                  <dt className="eyebrow text-ink/65">{metric.label}</dt>
                   <dd className="mt-2 font-display text-2xl text-ink md:text-3xl">
                     {state.status === 'loading' ? (
                       <span
@@ -106,20 +106,20 @@ export function SeaConditions() {
                       <>
                         {metric.value}
                         {metric.unit && (
-                          <span className="ml-1 text-lg normal-case text-ink/60 md:text-xl">
+                          <span className="ml-1 text-lg normal-case text-ink/70 md:text-xl">
                             {metric.unit}
                           </span>
                         )}
                       </>
                     ) : (
-                      <span className="text-ink/25">—</span>
+                      <span className="text-ink/65">—</span>
                     )}
                   </dd>
                 </div>
               ))}
             </dl>
 
-            <p className="mt-3.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink/45">
+            <p className="mt-3.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink/65">
               <span
                 className={`inline-block size-2 rounded-full ${
                   reading.tone === 'calm'
