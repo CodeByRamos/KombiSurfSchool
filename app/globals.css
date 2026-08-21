@@ -1,0 +1,251 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   KOMBI SURF SCHOOL — sistema visual
+   Referência: editorial de surf. Fotografia protagonista, tipografia pesada,
+   muito respiro, cor usada com parcimônia. Grão levíssimo, sem gradiente
+   decorativo, sem glassmorphism, sem sombra pesada.
+   ========================================================================== */
+
+@theme {
+  /* Base */
+  --color-ink: #071a20;
+  --color-ink-800: #0c2730;
+  --color-ink-700: #143843;
+  --color-ink-500: #2b5a66;
+
+  /* Areia / espuma */
+  --color-foam: #f7f3ea;
+  --color-sand: #ece2d0;
+  --color-sand-dark: #d6c8b0;
+
+  /* Acento — laranja de Kombi */
+  --color-kombi: #ef4b23;
+  --color-kombi-dark: #cf3a17;
+
+  /* Mar */
+  --color-sea: #0e7f8c;
+  --color-sea-light: #6cbfc7;
+  --color-sky: #bfe3e6;
+  --color-sun: #ffbe45;
+
+  --font-display: var(--font-anton), 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --header-h: 4.5rem;
+  --shell: 82rem;
+}
+
+* {
+  border-color: color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-foam);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tipografia de display
+   --------------------------------------------------------------------------
+   Nota importante para português: caixa alta acentuada (Á, É, Õ, Ç) precisa de
+   espaço acima da linha. Uma entrelinha abaixo de ~0.92 corta o acento no
+   Anton. Por isso a display fica em 0.94 — ainda bem fechada e editorial, mas
+   sem comer o acento de "ONDA É HOJE" ou "EVOLUÇÃO".
+
+   As classes vivem em @layer components para que utilitários do Tailwind
+   (leading-tight, text-2xl…) continuem podendo sobrescrevê-las.
+   -------------------------------------------------------------------------- */
+@layer components {
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .headline {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    line-height: 0.94;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Grão — textura levíssima aplicada por cima das áreas escuras
+   -------------------------------------------------------------------------- */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --------------------------------------------------------------------------
+   Foco visível — acessibilidade
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 3px solid var(--color-kombi);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-sun);
+}
+
+/* --------------------------------------------------------------------------
+   Reveal — entrada sutil ao rolar
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s var(--ease-out-soft),
+    transform 0.7s var(--ease-out-soft);
+  will-change: opacity, transform;
+}
+
+.reveal[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Marquee horizontal (faixa de destaque)
+   -------------------------------------------------------------------------- */
+@keyframes kombi-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: kombi-marquee 38s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Movimento lento da água no hero
+   -------------------------------------------------------------------------- */
+@keyframes kombi-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-1.5%, -0.8%, 0);
+  }
+}
+
+.drift-slow {
+  animation: kombi-drift 22s ease-in-out infinite;
+}
+
+@keyframes kombi-swell {
+  0%,
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+  50% {
+    transform: translateY(-6px) scaleY(1.03);
+  }
+}
+
+.swell {
+  animation: kombi-swell 9s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+/* --------------------------------------------------------------------------
+   Utilitários
+   -------------------------------------------------------------------------- */
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 2.5rem;
+  }
+}
+
+.rule {
+  height: 1px;
+  background: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+/* Esconde a barra de rolagem em trilhos horizontais, mantendo o scroll */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Impede que o CTA fixo do mobile cubra o rodapé */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
